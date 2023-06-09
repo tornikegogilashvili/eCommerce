@@ -3,11 +3,25 @@ import { FormContainer } from "../atoms";
 import {Input} from "../atoms/Input"
 import { UseForm } from "../../hooks/UseForm";
 import { generateRegisterFormValues } from "./generateRegisterFormValues";
+import { Button } from "@mui/material";
 
 
 export const RegisterForm = () => {
     const {formValues: registerFormValues, onFormChange} = UseForm(generateRegisterFormValues());
-    console.log("formValues", registerFormValues);
+
+    const onSubmit = () => {
+        const firstName = registerFormValues.firstName.value;
+        const lastName = registerFormValues.lastName.value;
+        const email = registerFormValues.email.value;
+        const password = registerFormValues.password.value;
+        console.log({
+            firstName,
+            lastName,
+            email,
+            password
+        });
+    };
+
     return(
         <FormContainer>
             <Input name="firstName" label="firstName" value={registerFormValues.firstName.value}
@@ -22,6 +36,7 @@ export const RegisterForm = () => {
             <Input name="password" label="password" value={registerFormValues.password.value}
             error={registerFormValues.password.error}
             onChange={onFormChange} />
+            <Button onClick={onSubmit}>register</Button>
         </FormContainer>
     )
 }
