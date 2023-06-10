@@ -6,12 +6,13 @@ import { generateRegisterFormValues } from "./generateRegisterFormValues";
 import { Button } from "@mui/material";
 import { authenticateUser } from "../../redux";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 export const RegisterForm = () => {
     const {formValues: registerFormValues, onFormChange} = UseForm(generateRegisterFormValues());
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     const onSubmit = () => {
         const firstName = registerFormValues.firstName.value;
@@ -23,7 +24,10 @@ export const RegisterForm = () => {
                 formValues: {firstName, lastName, email, password,},
                 isLogin: false,
         })
-    );
+    ).unwrap()
+    .then(() => {
+        navigate("/")
+    });
         console.log({
             firstName,
             lastName,

@@ -2,17 +2,27 @@ import React from "react";
 import { Button, FormContainer, Input } from "../atoms";
 import { generateLoginFormValues } from "./generateLoginFormValues";
 import { UseForm } from "../../hooks/UseForm";
+import { useDispatch } from "react-redux";
+import { authenticateUser } from "../../redux";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
     const {formValues: loginFormValues, onFormChange:onLoginFormChange} = UseForm(generateLoginFormValues());
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const onLogin = () => {
         const email = loginFormValues.email.value;
         const password = loginFormValues.password.value;
-        console.log({
-            email,
-            password,
-        });
+        dispatch(
+            authenticateUser({
+                formValues: {email, password},
+                isLogin: true,
+            }),
+        ).unwrap()
+        .then(() => {
+            navigate("/")
+        })
     };
 
     return(

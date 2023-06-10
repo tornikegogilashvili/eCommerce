@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../helper"
 
+
 export const authenticateUser = createAsyncThunk("user/authenticateUser",
 async ({formValues, isLogin}) => {
     try {
@@ -8,7 +9,7 @@ async ({formValues, isLogin}) => {
         const {data} = await axiosInstance.post(route,formValues);
         localStorage.setItem("token", data.token);
         localStorage.setItem("refreshToken", data.refreshToken);
-        return 
+        return  data;
     } catch (error) {
         
     }
@@ -22,8 +23,13 @@ const userSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(authenticateUser.pending)
-    }
+        builder.addCase(authenticateUser.pending, (state) => {state.loading = true
+        });
+        builder.addCase(authenticateUser.fulfilled, (state, action) => {
+            state.loading = true;
+            state.userInfo = action.payload.user;
+        });
+    },
 });
 
 
