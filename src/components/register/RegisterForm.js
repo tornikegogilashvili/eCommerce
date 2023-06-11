@@ -10,7 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 
 export const RegisterForm = () => {
-    const {formValues: registerFormValues, onFormChange} = UseForm(generateRegisterFormValues());
+    const {
+        formValues: registerFormValues, 
+        onFormChange, 
+        isButtonDisabled,
+     } = UseForm(generateRegisterFormValues());
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -26,15 +31,11 @@ export const RegisterForm = () => {
         })
     ).unwrap()
     .then(() => {
-        navigate("/")
+        navigate("/");
     });
-        console.log({
-            firstName,
-            lastName,
-            email,
-            password
-        });
     };
+
+
 
     return(
         <FormContainer>
@@ -50,7 +51,7 @@ export const RegisterForm = () => {
             <Input name="password" label="password" value={registerFormValues.password.value}
             error={registerFormValues.password.error}
             onChange={onFormChange} />
-            <Button onClick={onSubmit}>register</Button>
+            <Button onClick={onSubmit} disabled={isButtonDisabled} >register</Button>
         </FormContainer>
-    )
-}
+    );
+};
