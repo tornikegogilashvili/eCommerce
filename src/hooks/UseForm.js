@@ -30,7 +30,6 @@ export const UseForm = (defaultFormValues) => {
 
     const checkButtonDisabled = (formValues) => {
         for(let x in formValues ){
-            console.log(x);
             if(formValues[x]?.error){
                 return true;
             }

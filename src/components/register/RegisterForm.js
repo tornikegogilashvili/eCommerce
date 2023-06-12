@@ -1,5 +1,5 @@
 import React from "react";
-import { FormContainer } from "../atoms";
+import { Alert, FormContainer } from "../atoms";
 import {Input} from "../atoms/Input"
 import { UseForm } from "../../hooks/UseForm";
 import { generateRegisterFormValues } from "./generateRegisterFormValues";
@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import { authenticateUser } from "../../redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "../../hooks";
 
 
 export const RegisterForm = () => {
@@ -18,7 +19,7 @@ export const RegisterForm = () => {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+     const { showAlert, alertState, handleClose} = useAlert()
     const onSubmit = () => {
         const firstName = registerFormValues.firstName.value;
         const lastName = registerFormValues.lastName.value;
@@ -32,6 +33,9 @@ export const RegisterForm = () => {
     ).unwrap()
     .then(() => {
         navigate("/");
+    })
+    .catch((error) => {
+        showAlert(error);
     });
     };
 
@@ -52,6 +56,8 @@ export const RegisterForm = () => {
             error={registerFormValues.password.error}
             onChange={onFormChange} />
             <Button onClick={onSubmit} disabled={isButtonDisabled} >register</Button>
+
+            <Alert {...alertState} handleClose={handleClose} />
         </FormContainer>
     );
 };

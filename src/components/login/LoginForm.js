@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, FormContainer, Input } from "../atoms";
+import { Alert, Button, FormContainer, Input } from "../atoms";
 import { generateLoginFormValues } from "./generateLoginFormValues";
-import { UseForm } from "../../hooks/UseForm";
+import { useAlert,UseForm } from "../../hooks";
 import { useDispatch } from "react-redux";
 import { authenticateUser } from "../../redux";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 export const LoginForm = () => {
     const {formValues: loginFormValues, onFormChange:onLoginFormChange} = UseForm(generateLoginFormValues());
 
+
+    const {  showAlert , alertState, handleClose} = useAlert(); 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const onLogin = () => {
@@ -22,6 +24,9 @@ export const LoginForm = () => {
         ).unwrap()
         .then(() => {
             navigate("/")
+        })
+        .catch((err) =>{
+            showAlert(err)
         })
     };
 
@@ -43,6 +48,7 @@ export const LoginForm = () => {
                 type="password"
             />
             <Button onClick={onLogin} >Login</Button>
+            <Alert {...alertState} handleClose={handleClose} />
         </FormContainer>
 
     )

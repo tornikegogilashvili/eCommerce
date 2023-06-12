@@ -3,7 +3,7 @@ import { axiosInstance } from "../../helper"
 
 
 export const authenticateUser = createAsyncThunk("user/authenticateUser",
-async ({formValues, isLogin}) => {
+async ({formValues, isLogin}, {rejectWithValue}) => {
     try {
         const route = `/users/${isLogin ? "login" : "register"}`;
         const {data} = await axiosInstance.post(route,formValues);
@@ -11,9 +11,9 @@ async ({formValues, isLogin}) => {
         localStorage.setItem("refreshToken", data.refreshToken);
         return  data;
     } catch (error) {
-        
+        return rejectWithValue(error?.response?.data?.message);
     }
-})
+});
 const userSlice = createSlice({
     name: "user",
     initialState:{
