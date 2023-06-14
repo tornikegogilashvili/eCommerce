@@ -3,7 +3,8 @@ import {UseForm} from "../../../hooks"
 import { Button, FormContainer, Input } from "../../atoms"
 import {getProductFormValues} from "./generateProductFormValues"
 import FileBase64 from "react-filebase64"
-
+import { useDispatch } from "react-redux"
+import { saveProduct} from "../../../redux"
 
 
 export const ProductForm = () => {
@@ -11,12 +12,25 @@ export const ProductForm = () => {
     const {formValues: productFormValues, onFormChange: onProductFormChange, isButtonDisabled} = UseForm(getProductFormValues())
 
 
+    const dispatch = useDispatch();
+
     const onSaveProduct = () =>{
         const name = productFormValues.name.value;
         const description = productFormValues.description.value;
         const brand = productFormValues.brand.value;
         const category = productFormValues.category.value;
         const price = productFormValues.price.value;
+        dispatch(saveProduct({
+            product: {
+                name,
+                description,
+                brand,
+                category,
+                price,
+                image,
+            },
+        })
+    );
         console.log(name, description, price);
     }
 

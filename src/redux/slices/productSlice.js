@@ -7,7 +7,7 @@ export const saveProduct = createAsyncThunk(
     "product/saveProduct",
     async ({product}) => {
         try {
-            const {data} = await axiosInstance("/products", {product});
+            const {data} = await axiosInstance.post("/products", {product});
             return data;
         } catch (error) {
             
