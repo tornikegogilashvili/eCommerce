@@ -9,6 +9,16 @@ import { useNavigate } from "react-router-dom";
 export const LoginForm = () => {
     const {formValues: loginFormValues, onFormChange:onLoginFormChange} = UseForm(generateLoginFormValues());
 
+    const loginFormButtonStyle = {
+        backgroundColor: "#4474c2",
+        color: "#000000",
+        padding: "10px 25px",
+        width: "200px",
+        margin: "20px auto"
+    }
+
+
+    
 
     const {  showAlert , alertState, handleClose} = useAlert(); 
     const navigate = useNavigate();
@@ -31,7 +41,7 @@ export const LoginForm = () => {
     };
 
     return(
-        <FormContainer>
+        <FormContainer  >
             <Input 
                 name="email"
                 label="email"
@@ -47,7 +57,7 @@ export const LoginForm = () => {
                 error={loginFormValues.password.error}
                 type="password"
             />
-            <Button onClick={onLogin} >Login</Button>
+            <Button style={loginFormButtonStyle} onClick={onLogin} >Login</Button>
             <Alert {...alertState} handleClose={handleClose} />
         </FormContainer>
 
