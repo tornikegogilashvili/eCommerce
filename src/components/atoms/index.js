@@ -5,4 +5,4 @@ export {FormContainer} from "./FormContainer"
 export {Alert} from "./Alert"
 export {GridContainer} from "./GridContainer"
 export {Loading, LoadingWrapper } from "./Loading"
-
+export { Link } from "./Link"
