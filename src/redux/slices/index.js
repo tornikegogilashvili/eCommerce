@@ -1,2 +1,2 @@
 export { userReducer, authenticateUser } from "./userSlice";
-export {productReducer, saveProduct, fetchHomePageProducts} from "./productSlice"
+export {productReducer, saveProduct, fetchHomePageProducts, setSelectedProduct,deleteProduct } from "./productSlice"

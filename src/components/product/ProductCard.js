@@ -1,6 +1,8 @@
-import { Box, Card, Grid, styled } from "@mui/material";
+import { Box, Card, CardActions, Grid, styled } from "@mui/material";
 import React from "react"
 import { Link, Text } from "../atoms";
+import { ProductCardActions } from "./ProductCardActions";
+import { useUser } from "../../hooks";
 
 
 const StyledImage = styled("img")(() => ({
@@ -19,9 +21,10 @@ const StyledInfoContainer = styled(Box)(() => ({
 
 export const ProductCard = ({ product }) => {
     const { name, image, category, price } = product;
+    const {userInfo} = useUser();
     return (
         <Grid item xs={12} sn={12} md={4} lg={3}  >
-            <Card sx={{borderRadius: 10}} >
+            <Card sx={{borderRadius: 8}} >
                 <Link to="singleProductPage" >
                 <StyledImage 
                     src={image}
@@ -37,6 +40,9 @@ export const ProductCard = ({ product }) => {
                     <Text>${price}</Text>
                 </StyledInfoContainer>
                 </Link>
+                <CardActions>
+                    <ProductCardActions userInfo={userInfo} product={product} />
+                </CardActions>
             </Card>
         </Grid>
     )

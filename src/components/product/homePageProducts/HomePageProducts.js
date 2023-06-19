@@ -1,10 +1,18 @@
 import React from "react";
 import { useProduct } from "../../../hooks";
-import { GridContainer } from "../../atoms";
+import { GridContainer, LoadingWrapper } from "../../atoms";
 import { ProductCard } from "../ProductCard";
 
 
 export const HomePageProducts = () => {
-    const {homePageProducts} = useProduct();
-    return <GridContainer> {homePageProducts.map((product) => <ProductCard product={product} key={product._id} />)} </GridContainer>
+    const {homePageProducts, isProductLoading} = useProduct();
+    return (
+        <LoadingWrapper isProductLoading={isProductLoading} >
+            <GridContainer> 
+                {homePageProducts.map((product) => 
+                    <ProductCard product={product} key={product._id} 
+                    />)} 
+            </GridContainer>
+        </LoadingWrapper>
+    );
 }

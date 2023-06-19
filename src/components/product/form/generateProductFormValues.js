@@ -1,14 +1,14 @@
-export const getProductFormValues = () => {
+export const getProductFormValues = (selectedProduct) => {
     return{
         name: {
-            value: "",
+            value: selectedProduct?.name || "",
             required: true,
             error: "",
             validateInput : (name) =>
                 name.length >1 ? null : "name should have at least 2 character",
         },
         description: {
-            value: "",
+            value: selectedProduct?.description || "",
             required: true,
             error: "",
             validateInput : (description) =>
@@ -17,21 +17,21 @@ export const getProductFormValues = () => {
                 : "description should have at least 2 character",
         },
         category: {
-            value: "",
+            value: selectedProduct?.category || "",
             required: true,
             error: "",
             validateInput : (category) =>
                 category.length >1 ? null : "category should have at least 2 character",
         },
         brand: {
-            value: "",
+            value: selectedProduct?.brand || "",
             required: true,
             error: "",
             validateInput : (brand) =>
                 brand.length >1 ? null : "brand should have at least 2 character",
         },
         price: {
-            value: 0,
+            value: selectedProduct?.price || "",
             required: true,
             error: "",
             validateInput : (price) =>

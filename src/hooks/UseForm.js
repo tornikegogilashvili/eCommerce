@@ -41,5 +41,6 @@ export const UseForm = (defaultFormValues) => {
         onFormChange,
         clearForm,
         isButtonDisabled,
+        setFormValues,
     };
-}
+};
