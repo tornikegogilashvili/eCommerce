@@ -2,6 +2,10 @@ import { Avatar, Box, IconButton, Menu, MenuItem, styled } from "@mui/material"
 import React, { useState } from "react"
 import { Button } from "../atoms";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../hooks";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux";
+import { getUserInitials } from "../../helper";
 
 
 const StyledBox = styled(Box)(() => ({
@@ -12,16 +16,16 @@ const StyledBox = styled(Box)(() => ({
 
 export const UserIcon = () => {
     const [anchor, setAnchor] = useState(null);
-
+    const {userInfo} = useUser();
     
 
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     return(
         <Box>
             <IconButton  onClick={(e) => setAnchor(e.currentTarget
                 )} >
-                <Avatar>TG</Avatar>
+                <Avatar>{getUserInitials(userInfo)}</Avatar>
             </IconButton>
             <Menu
                 anchorEl={anchor}
@@ -32,12 +36,25 @@ export const UserIcon = () => {
                 }}
             >
                 <StyledBox>
+                    {!userInfo ? (
+                        <>
+                        
                     <MenuItem>
                         <Button onClick={() => navigate("/login")} >Login</Button>
                     </MenuItem>
                     <MenuItem>
                         <Button onClick={() => navigate("/register")} >Register</Button>
                     </MenuItem>
+                        </>
+                    ) : (
+                        <>
+                        <MenuItem>
+                            <Button onClick={() => 
+                                dispatch(logoutUser())
+                            } >logout</Button>
+                        </MenuItem>
+                        </>
+                    )}
                 </StyledBox>
             </Menu>
         </Box>

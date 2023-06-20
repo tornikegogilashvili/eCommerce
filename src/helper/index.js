@@ -1,3 +1,3 @@
 export {ProtectedRoute} from "./ProtectedRoute"
 export {axiosInstance} from "./instance"
-export {isUserAdmin} from "./utils"
+export {isUserAdmin, getUserInitials} from "./utils"
