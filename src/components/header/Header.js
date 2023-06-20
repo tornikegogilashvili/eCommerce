@@ -1,6 +1,8 @@
 import { AppBar, Toolbar, styled, Box,  } from "@mui/material";
 import { UserIcon } from "./UserIcon";
 import { Link } from "react-router-dom";
+import { ProductCategories } from "./ProductCategories";
+import { useProduct } from "../../hooks";
 
 
 const StyledAppBar = styled(AppBar)(() => ({
@@ -17,6 +19,7 @@ const StyledToolBar = styled(Toolbar)(() => ({
     paddingBottom: 8,
 }));
 
+
 export const Header = () => {
     return (
     <Box>
@@ -27,6 +30,7 @@ export const Header = () => {
                     <UserIcon />
                 </Box>
             </StyledToolBar>
+            <ProductCategories categories={categories}  />
         </StyledAppBar> 
     </Box>)
 };

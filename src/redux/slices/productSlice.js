@@ -49,6 +49,8 @@ export const productSlice = createSlice({
         loading: false,
         error: null,
         homePageProducts: [],
+        selectedProduct: null,
+        homePageCategories: [],
     },
     
     
@@ -65,10 +67,12 @@ export const productSlice = createSlice({
         builder.addCase(fetchHomePageProducts.fulfilled, (state, action)=>{
             state.loading = false;
             state.homePageProducts = action.payload.products;
+            state.categories = action.payload.categories;
         });
         builder.addCase(fetchHomePageProducts.rejected, (state, action)=>{
             state.loading = false;
             state.error=action.payload;
+
         });
         builder.addCase(saveProduct.fulfilled, (state) => {
             state.selectedProduct = null;

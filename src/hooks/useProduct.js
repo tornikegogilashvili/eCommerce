@@ -11,6 +11,9 @@ export const useProduct = () => {
 
     const isProductLoading = useSelector((state) => state.product.loading);
 
+
+    const productCategories = useSelector((state) => state.product.categories)
+
     return {
         homePageProducts,
         selectedProduct,
