@@ -1,20 +1,12 @@
-// import React from "react"
-
-
-// export const CategoryProductsList = () => {
-//     return (
-//         <div>CategoryProductList</div>
-//     )
-// }
-
 import React, { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { fetchCategoryProducts } from "../../../redux/slices";
 import { useParams } from "react-router-dom";
 import { GridContainer, Loading, LoadingWrapper }  from "../../atoms"
 import { Box, styled } from "@mui/material";
 import { ProductCard } from "../ProductCard"
-import { useProduct } from "../../../hooks";
+import { useProduct, useQueryParams } from "../../../hooks";
+import { Paginate } from "./Paginate";
+import { useFetchData } from "../../../hooks/useFetchData";
+
 
 const Container = styled(Box)(() => ({
     display: "flex",
@@ -25,22 +17,30 @@ const Container = styled(Box)(() => ({
 }));
 
 export const CategoryProductsList = () => {
-    const dispatch = useDispatch();
-    const {isProductLoading, categoryProducts} = useProduct();
     const {categoryName} = useParams();
+    const {value: page, changeQuery: changePage} = useQueryParams("page");
+    const {getData, loading, data} = useFetchData();
+    const {products, totalPages} = data;
+
+
     useEffect(() => {
-        dispatch(
-            fetchCategoryProducts(`${categoryName}?size=1&sort=price,asc&page=1`))
-    },[]);
+        getData(`products/categories/${categoryName}?size=1&sort=price,asc&page=${page}`);
+    },[page]);
+
+
+
+    
 
     return (
-        <LoadingWrapper isLoading={isProductLoading}>
+        <LoadingWrapper isLoading={loading}>
+
             <Container>
                 <GridContainer>
-                    {categoryProducts?.map((product) => {
+                    {products?.map((product) => {
                         return <ProductCard key={product._id} product={product}  />
                     })}
                 </GridContainer>
+                <Paginate total={totalPages} page={page} changePage={changePage} />
             </Container>
         </LoadingWrapper>
 )}

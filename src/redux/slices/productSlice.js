@@ -44,15 +44,15 @@ export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id
     }
 })
 
-export const fetchCategoryProducts = createAsyncThunk(
-    "product/fetchCategoryProducts",
-    async (url) => {
-        try {
-            const {data} = await axiosInstance.get(`/products/categories/${url}`);
-            return data;
-        }catch (error) {}
-    }
-)
+// export const fetchCategoryProducts = createAsyncThunk(
+//     "product/fetchCategoryProducts",
+//     async (url) => {
+//         try {
+//             const {data} = await axiosInstance.get(`/products/categories/${url}`);
+//             return data;
+//         }catch (error) {}
+//     }
+// )
 
 
 export const fetchSingleProduct = createAsyncThunk(
@@ -89,7 +89,6 @@ export const productSlice = createSlice({
         homePageProducts: [],
         selectedProduct: null,
         categories: [],
-        categoryProducts: [],
         singleProduct: {},
     },
     
@@ -124,14 +123,7 @@ export const productSlice = createSlice({
         });
 
 
-        builder.addCase(fetchCategoryProducts.pending, pendingReducer);
-        builder.addCase(fetchCategoryProducts.fulfilled, (state, action) => {
-            state.loading = false;
-            state.categoryProducts = action.payload.products;
-        });
-
-
-        builder.addCase(fetchCategoryProducts.rejected, rejectedReducer);
+        
         builder.addCase(fetchSingleProduct.pending, pendingReducer);
         builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
             state.loading = false;

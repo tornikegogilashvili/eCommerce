@@ -16,7 +16,7 @@ export const ProductCategories = () => {
         {productCategories.map((category) => {
             const { _id, name } = category;
             return(
-                <Link to={`/products/categories/${name}`} >
+                <Link to={`/products/categories/${name}?page=1&sort=price,asc`} >
                     <StyledListItems key={_id} >
                         <Text color="#FF9900">{name}</Text>
                     </StyledListItems>

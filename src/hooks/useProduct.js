@@ -14,9 +14,7 @@ export const useProduct = () => {
 
     const productCategories = useSelector((state) => state.product.categories)
 
-    const categoryProducts = useSelector(
-        (state) => state.product.categoryProducts
-    );
+    
 
     const singleProduct = useSelector((state) => state.product.singleProduct);
 
@@ -25,7 +23,6 @@ export const useProduct = () => {
         selectedProduct,
         isProductLoading,
         productCategories,
-        categoryProducts,
         singleProduct,
     };
 };
