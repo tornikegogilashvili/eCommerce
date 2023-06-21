@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import {axiosInstance} from "../../helper"
+import { SingleProduct } from "../../pages";
 
 
 
@@ -54,6 +55,21 @@ export const fetchCategoryProducts = createAsyncThunk(
 )
 
 
+export const fetchSingleProduct = createAsyncThunk(
+    "product/fetchSingleProduct",
+    async ({ id, category}, {rejectWithValue}) => {
+        try {
+            const { data } = await axiosInstance.get(
+                `/products/category/${category}/${id}`
+            );
+            return data;
+        }catch (error) {
+            return rejectWithValue("could not fetch product");
+        }
+    }
+);
+
+
 const pendingReducer = (state) => {
     state.loading = true;
 };
@@ -74,7 +90,7 @@ export const productSlice = createSlice({
         selectedProduct: null,
         categories: [],
         categoryProducts: [],
-        
+        singleProduct: {},
     },
     
     
@@ -116,7 +132,14 @@ export const productSlice = createSlice({
 
 
         builder.addCase(fetchCategoryProducts.rejected, rejectedReducer);
-    }
+        builder.addCase(fetchSingleProduct.pending, pendingReducer);
+        builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+            state.loading = false;
+            state.singleProduct = action.payload.product;
+        } );
+        builder.addCase(fetchSingleProduct.rejected, rejectedReducer);
+
+    },
 });
 
 export const {setSelectedProduct} = productSlice.actions;

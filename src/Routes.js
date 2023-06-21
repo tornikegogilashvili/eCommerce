@@ -1,5 +1,5 @@
 import {Route , Routes} from "react-router-dom"
-import { RegisterPage, HomePage, LoginPage, ProductFormPage, CategoryProductsPage ,  } from "./pages";
+import { RegisterPage, HomePage, LoginPage, ProductFormPage, CategoryProductsPage, SingleProductPage ,  } from "./pages";
 import { ProtectedRoute, isUserAdmin } from "./helper";
 import { useUser } from "./hooks";
 
@@ -12,6 +12,8 @@ export const RouteComponent = () => {
         <Route path="/login" element ={<LoginPage />} />
         <Route path="/register" element ={<RegisterPage />} />
         <Route path="/products/categories/:categoryName" element={<CategoryProductsPage  />}  
+        />
+        <Route path="/products/categories/:categoryName/:id" element={<SingleProductPage  />}  
         />
         <Route 
             path="/product/new" 

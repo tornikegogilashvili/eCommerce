@@ -18,11 +18,14 @@ export const useProduct = () => {
         (state) => state.product.categoryProducts
     );
 
+    const singleProduct = useSelector((state) => state.product.singleProduct);
+
     return {
         homePageProducts,
         selectedProduct,
         isProductLoading,
         productCategories,
         categoryProducts,
+        singleProduct,
     };
 };
