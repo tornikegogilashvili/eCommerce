@@ -14,9 +14,15 @@ export const useProduct = () => {
 
     const productCategories = useSelector((state) => state.product.categories)
 
+    const categoryProducts = useSelector(
+        (state) => state.product.categoryProducts
+    );
+
     return {
         homePageProducts,
         selectedProduct,
         isProductLoading,
+        productCategories,
+        categoryProducts,
     };
 };

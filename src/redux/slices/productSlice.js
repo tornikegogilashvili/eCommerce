@@ -43,6 +43,28 @@ export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id
     }
 })
 
+export const fetchCategoryProducts = createAsyncThunk(
+    "product/fetchCategoryProducts",
+    async (url) => {
+        try {
+            const {data} = await axiosInstance.get(`/products/categories/${url}`);
+            return data;
+        }catch (error) {}
+    }
+)
+
+
+const pendingReducer = (state) => {
+    state.loading = true;
+};
+
+const rejectedReducer = (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+};
+
+
+
 export const productSlice = createSlice({
     name: "product",
     initialState: {
@@ -50,7 +72,9 @@ export const productSlice = createSlice({
         error: null,
         homePageProducts: [],
         selectedProduct: null,
-        homePageCategories: [],
+        categories: [],
+        categoryProducts: [],
+        
     },
     
     
@@ -61,22 +85,37 @@ export const productSlice = createSlice({
     },
 
     extraReducers: (builder) => {
-        builder.addCase(fetchHomePageProducts.pending, (state)=>{
-            state.loading = true;
-        });
+        builder.addCase(fetchHomePageProducts.pending, pendingReducer);
+
+
+        
         builder.addCase(fetchHomePageProducts.fulfilled, (state, action)=>{
             state.loading = false;
             state.homePageProducts = action.payload.products;
             state.categories = action.payload.categories;
         });
+
+
         builder.addCase(fetchHomePageProducts.rejected, (state, action)=>{
             state.loading = false;
             state.error=action.payload;
 
         });
+
+
         builder.addCase(saveProduct.fulfilled, (state) => {
             state.selectedProduct = null;
         });
+
+
+        builder.addCase(fetchCategoryProducts.pending, pendingReducer);
+        builder.addCase(fetchCategoryProducts.fulfilled, (state, action) => {
+            state.loading = false;
+            state.categoryProducts = action.payload.products;
+        });
+
+
+        builder.addCase(fetchCategoryProducts.rejected, rejectedReducer);
     }
 });
 

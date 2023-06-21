@@ -30,7 +30,7 @@ export const Header = () => {
                     <UserIcon />
                 </Box>
             </StyledToolBar>
-            <ProductCategories categories={categories}  />
+            <ProductCategories   />
         </StyledAppBar> 
     </Box>)
 };
