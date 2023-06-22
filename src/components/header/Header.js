@@ -1,8 +1,11 @@
 import { AppBar, Toolbar, styled, Box,  } from "@mui/material";
 import { UserIcon } from "./UserIcon";
-import { Link } from "react-router-dom";
 import { ProductCategories } from "./ProductCategories";
-import { useProduct } from "../../hooks";
+import { Button, Link } from "../atoms";
+import {CiHome} from "react-icons/ci"
+import {BsFillCartCheckFill} from "react-icons/bs"
+import { useState } from "react";
+import { CartDrawer } from "./CartDrawer";
 
 
 const StyledAppBar = styled(AppBar)(() => ({
@@ -21,16 +24,27 @@ const StyledToolBar = styled(Toolbar)(() => ({
 
 
 export const Header = () => {
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
     return (
     <Box>
         <StyledAppBar>
             <StyledToolBar>
-                <Link to="/">home</Link>
-                <Box sx={{display:"flex"}} >
-                    <UserIcon />
+                <Link>
+                    <CiHome  size={30} color="#fff" />
+                </Link>
+                <Box sx={{display: "flex"}} >
+
+                    <Button onClick={(() =>setIsCartOpen(true))} >
+                        <BsFillCartCheckFill size={35} color="#fff" />
+                    </Button>
+                    <Box sx={{display:"flex"}} >
+                        <UserIcon />
+                    </Box>
                 </Box>
             </StyledToolBar>
             <ProductCategories   />
-        </StyledAppBar> 
+        </StyledAppBar>
+        <CartDrawer isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} /> 
     </Box>)
 };

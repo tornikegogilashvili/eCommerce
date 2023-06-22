@@ -32,7 +32,7 @@ export const ProductCardActions = ({userInfo, product, cartItems }) => {
     }
 
 
-    const productInCart = cartItems.find((item) => item.product._id === _id)
+    const productInCart = cartItems?.find((item) => item.product._id === _id)
     return (
     <Box>
         {productInCart ? (

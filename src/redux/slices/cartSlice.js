@@ -1,4 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { axiosInstance } from "../../helper";
+
+export const fetchCart = createAsyncThunk(
+    "cart/fetchCart", 
+    async ({userId}, {rejectWithValue}) => {
+    try {
+        const {data} = await axiosInstance.get(`/users/${userId}/cart`);
+        return data;
+    } catch (error) {
+        return rejectWithValue("could not fetch cart ")
+    }
+}
+);
+
+export const saveCart = createAsyncThunk("cart/saveCart", async ({userId, cartItems}, {rejectWithValue, dispatch}) => {
+    try {
+        const {data} = await axiosInstance.put(`/users/${userId}/cart`, {
+            products:cartItems,
+        });
+        dispatch(fetchCart({userId}));
+    } catch (error) {
+        return rejectWithValue("could not save cart");
+    }
+});
 
 
 
@@ -40,10 +64,26 @@ const cartSlice = createSlice({
                 state.cartItems = updatedCart;
             }
         },
+        clearCart: (state) => {
+        state.cartItems = []
     },
+},
+extraReducers: (builder) => {
+    builder.addCase(fetchCart.pending, (state) => {
+        state.loading = true;
+    });
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cartItems = action.payload.cart;
+    });
+    builder.addCase(fetchCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    });
+},
 
 });
 
 export const cartReducer = cartSlice.reducer;
 
-export const {addToCart, removeFromCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, clearCart} = cartSlice.actions;
