@@ -15,7 +15,7 @@ export const fetchCart = createAsyncThunk(
 
 export const saveCart = createAsyncThunk("cart/saveCart", async ({userId, cartItems}, {rejectWithValue, dispatch}) => {
     try {
-        const {data} = await axiosInstance.put(`/users/${userId}/cart`, {
+        await axiosInstance.put(`/users/${userId}/cart`, {
             products:cartItems,
         });
         dispatch(fetchCart({userId}));

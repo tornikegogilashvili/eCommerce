@@ -45,16 +45,21 @@ export const CartDrawer = ({  isCartOpen, setIsCartOpen }) => {
                     <StyledImage src={image} alt={`${name}-img`}/>
                     <Box sx={{paddingLeft: 5}} >
                         <Text>{name}</Text>
-                        <Text>quntity: {quantity}</Text>
-                        <Text>total: {price * quantity}</Text>
+                        <Text>quantity: {quantity}</Text>
+                        <Text>total: ${price * quantity}</Text>
                     </Box>
                 </StyledCartItem>
-            )
+            );
         })}
       
 
       <StyledButtonContainer>
-        <Button onClick={() => dispatch(clearCart)} >clear cart</Button>
+        <Button onClick={() => {
+            dispatch(clearCart());
+            if(userInfo?._id){
+                dispatch(saveCart({cartItems: [], userId: userInfo?._id}))
+            }
+            }} >clear cart</Button>
         {!!userInfo && (
         <Button
             onClick={() => 

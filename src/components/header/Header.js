@@ -6,6 +6,7 @@ import {CiHome} from "react-icons/ci"
 import {BsFillCartCheckFill} from "react-icons/bs"
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
+import { SearchBar } from "./SearchBar";
 
 
 const StyledAppBar = styled(AppBar)(() => ({
@@ -30,9 +31,10 @@ export const Header = () => {
     <Box>
         <StyledAppBar>
             <StyledToolBar>
-                <Link>
+                <Link to="/">
                     <CiHome  size={30} color="#fff" />
                 </Link>
+                <SearchBar />
                 <Box sx={{display: "flex"}} >
 
                     <Button onClick={(() =>setIsCartOpen(true))} >

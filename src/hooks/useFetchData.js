@@ -24,5 +24,6 @@ const getData = async (url) => {
 return{
     ...state,
     getData,
+    setState,
 };
 };

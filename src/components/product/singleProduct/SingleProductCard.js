@@ -2,6 +2,8 @@ import { Box, styled } from "@mui/material"
 import React from "react"
 import { SingleProduct } from "./SingleProduct";
 import { Text } from "../../atoms";
+import { useCart, useUser } from "../../../hooks";
+import { ProductCardActions } from "../ProductCardActions";
 
 
 
@@ -24,6 +26,8 @@ const Description = styled("div")(() => ({
 }));
 
 export const SingleProductCard = ({product}) => {
+    const {userInfo} = useUser();
+    const {cartItems} = useCart();
     const { image, name, brand, description } = product;
     console.log(product);
     return (
@@ -45,11 +49,12 @@ export const SingleProductCard = ({product}) => {
                     <Text variant="h4" >აღწერა:</Text>
                     <Text variant="h4" >{description}</Text>
                 </Description>
-                {/* <CartButtons 
-                    isProductInCart={isProductInCart}
-                    userData={userData}
+                <ProductCardActions 
+                    
+                    userInfo={userInfo}
                     product={product} 
-                /> */}
+                    cartItems={cartItems}
+                />
             </Box>
         </Container>
     );
