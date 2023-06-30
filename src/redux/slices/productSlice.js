@@ -9,7 +9,7 @@ export const fetchHomePageProducts = createAsyncThunk(
     "product/fetchHomePageProducts",
     async (_, {rejectWithValue}) => {
         try {
-            const { data } = await axiosInstance.get("/products");
+            const { data } = await axiosInstance.get("https://backend-fzwm.onrender.com/products");
             return data;
         } catch (error) {
             return rejectWithValue("could not fetch product");
@@ -22,7 +22,7 @@ export const saveProduct = createAsyncThunk(
     "product/saveProduct",
     async ({product, productId}, {dispatch, rejectWithValue}) => {
         try {
-            const endpoint = productId ? `/products/${productId}` : "/products";
+            const endpoint = productId ? `https://backend-fzwm.onrender.com/products/${productId}` : "https://backend-fzwm.onrender.com/products";
             const method = productId ? "put" : "post";
             const {data} = await axiosInstance[method](endpoint,  {product});
             dispatch(fetchHomePageProducts());
@@ -36,7 +36,7 @@ export const saveProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id, {dispatch}) => {
     try {
-        const {data} =await axiosInstance.delete(`/products/${id}`);
+        const {data} =await axiosInstance.delete(`https://backend-fzwm.onrender.com/products/${id}`);
         dispatch(fetchHomePageProducts());
         return data;
     } catch (error) {
@@ -60,7 +60,7 @@ export const fetchSingleProduct = createAsyncThunk(
     async ({ id, category}, {rejectWithValue}) => {
         try {
             const { data } = await axiosInstance.get(
-                `/products/category/${category}/${id}`
+                `https://backend-fzwm.onrender.com/products/category/${category}/${id}`
             );
             return data;
         }catch (error) {

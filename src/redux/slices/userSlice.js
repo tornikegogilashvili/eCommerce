@@ -5,7 +5,7 @@ import { axiosInstance } from "../../helper"
 export const authenticateUser = createAsyncThunk("user/authenticateUser",
 async ({formValues, isLogin}, {rejectWithValue}) => {
     try {
-        const route = `/users/${isLogin ? "login" : "register"}`;
+        const route = `https://backend-fzwm.onrender.com/users/${isLogin ? "login" : "register"}`;
         const {data} = await axiosInstance.post(route,formValues);
         localStorage.setItem("token", data.token);
         localStorage.setItem("refreshToken", data.refreshToken);
