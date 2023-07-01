@@ -9,7 +9,7 @@ export const Loading = ({ size = 100 }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                eight: "100%",
+                height: "100%",
             }} 
         >
             <CircularProgress size={size} />
