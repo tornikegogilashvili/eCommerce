@@ -1,7 +1,12 @@
 import axios from "axios";
+import env from "react-dotenv";
+
+
+const backendURL = process.env.REACT_APP_ECOMMERCEURL
+
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:3001/"
+    baseURL: backendURL,
 });
 
 
@@ -24,7 +29,7 @@ axiosInstance.interceptors.response.use(
             response.response.status === 401 && 
             response?.response?.data?.message === "token not valid" ) {
                 const refreshToken = localStorage.getItem("refreshToken");
-                axios.post("http://localhost:3001/users/refresh", {
+                axios.post("https://backend-fzwm.onrender.com/users/refresh", {
                     refresh_token: refreshToken,
                 })
                 .then(({ data }) => {

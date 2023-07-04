@@ -26,7 +26,7 @@ export const CategoryProductsList = () => {
 
 
     useEffect(() => {
-        getData(`https://backend-fzwm.onrender.com/products/categories/${categoryName}?size=1&sort=${sort}&page=${page}`);
+        getData(`/products/categories/${categoryName}?size=1&sort=${sort}&page=${page}`);
     },[page, sort]);
 
 

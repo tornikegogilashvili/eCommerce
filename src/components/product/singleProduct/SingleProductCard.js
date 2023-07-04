@@ -29,7 +29,7 @@ export const SingleProductCard = ({product}) => {
     const {userInfo} = useUser();
     const {cartItems} = useCart();
     const { image, name, brand, description } = product;
-    console.log(product);
+    
     return (
         <Container>
             <StyledImage src={image}  />

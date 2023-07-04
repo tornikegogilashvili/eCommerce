@@ -5,7 +5,7 @@ export const fetchCart = createAsyncThunk(
     "cart/fetchCart", 
     async ({userId}, {rejectWithValue}) => {
     try {
-        const {data} = await axiosInstance.get(`https://backend-fzwm.onrender.com/users/${userId}/cart`);
+        const {data} = await axiosInstance.get(`/users/${userId}/cart`);
         return data;
     } catch (error) {
         return rejectWithValue("could not fetch cart ")
@@ -15,7 +15,7 @@ export const fetchCart = createAsyncThunk(
 
 export const saveCart = createAsyncThunk("cart/saveCart", async ({userId, cartItems}, {rejectWithValue, dispatch}) => {
     try {
-        await axiosInstance.put(`https://backend-fzwm.onrender.com/users/${userId}/cart`, {
+        await axiosInstance.put(`/users/${userId}/cart`, {
             products:cartItems,
         });
         dispatch(fetchCart({userId}));

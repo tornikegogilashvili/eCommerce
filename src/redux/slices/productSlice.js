@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import {axiosInstance} from "../../helper"
-import { SingleProduct } from "../../pages";
+// import { SingleProduct } from "../../pages";
 
 
 
@@ -9,7 +9,7 @@ export const fetchHomePageProducts = createAsyncThunk(
     "product/fetchHomePageProducts",
     async (_, {rejectWithValue}) => {
         try {
-            const { data } = await axiosInstance.get("https://backend-fzwm.onrender.com/products");
+            const { data } = await axiosInstance.get("/products");
             return data;
         } catch (error) {
             return rejectWithValue("could not fetch product");
@@ -22,7 +22,7 @@ export const saveProduct = createAsyncThunk(
     "product/saveProduct",
     async ({product, productId}, {dispatch, rejectWithValue}) => {
         try {
-            const endpoint = productId ? `https://backend-fzwm.onrender.com/products/${productId}` : "https://backend-fzwm.onrender.com/products";
+            const endpoint = productId ? `/products/${productId}` : "/products";
             const method = productId ? "put" : "post";
             const {data} = await axiosInstance[method](endpoint,  {product});
             dispatch(fetchHomePageProducts());
@@ -60,7 +60,7 @@ export const fetchSingleProduct = createAsyncThunk(
     async ({ id, category}, {rejectWithValue}) => {
         try {
             const { data } = await axiosInstance.get(
-                `https://backend-fzwm.onrender.com/products/category/${category}/${id}`
+                `/products/category/${category}/${id}`
             );
             return data;
         }catch (error) {

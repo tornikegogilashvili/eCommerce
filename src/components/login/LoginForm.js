@@ -7,13 +7,13 @@ import { authenticateUser } from "../../redux";
 import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
-    const {formValues: loginFormValues, onFormChange:onLoginFormChange} = UseForm(generateLoginFormValues());
+    const {formValues: loginFormValues, onFormChange:onLoginFormChange,isButtonDisabled,} = UseForm(generateLoginFormValues());
 
     const loginFormButtonStyle = {
-        backgroundColor: "#4474c2",
-        color: "#000000",
+        // backgroundColor: "#4474c2",
+        // color: "#000000",
         padding: "10px 25px",
-        width: "200px",
+        width: "100%",
         margin: "20px auto"
     }
 
@@ -30,13 +30,14 @@ export const LoginForm = () => {
             authenticateUser({
                 formValues: {email, password},
                 isLogin: true,
-            }),
+            })
         ).unwrap()
         .then(() => {
             navigate("/")
         })
-        .catch((err) =>{
-            showAlert(err)
+        .catch((error) =>{
+            showAlert("error", error);
+            console.log(error);
         })
     };
 
@@ -57,7 +58,7 @@ export const LoginForm = () => {
                 error={loginFormValues.password.error}
                 type="password"
             />
-            <Button style={loginFormButtonStyle} onClick={onLogin} >Login</Button>
+            <Button style={loginFormButtonStyle} onClick={onLogin} disabled={isButtonDisabled} >Login</Button>
             <Alert {...alertState} handleClose={handleClose} />
         </FormContainer>
 

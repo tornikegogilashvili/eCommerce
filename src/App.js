@@ -1,4 +1,4 @@
-import {Routes, Route, Link} from "react-router-dom"
+// import {Routes, Route, Link} from "react-router-dom"
 import { RouteComponent } from "./Routes";
 import './App.css';
 import { Header } from "./components/header";
@@ -27,7 +27,7 @@ const  App = () => {
       <Grid item  >
         <Header />
       </Grid>
-      <Link to="/product/new" >add Product</Link>
+      {/* <Link to="/product/new" >add Product</Link> */}
       <Grid item 
         sx={{
           paddingTop: 20,

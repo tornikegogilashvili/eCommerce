@@ -2,6 +2,8 @@ import { Snackbar, Alert as MUIAlert } from "@mui/material";
 
 
 export const Alert = ({open, handleClose, severity, message}) => {
+    // const {messageText} = message;
+    return(
     <Snackbar anchorOrigin={{
         vertical: "bottom",
         horizontal: "right",
@@ -18,4 +20,5 @@ export const Alert = ({open, handleClose, severity, message}) => {
             {message}
         </MUIAlert>
     </Snackbar>
+    )
     };

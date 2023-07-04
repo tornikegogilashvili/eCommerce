@@ -1,13 +1,13 @@
 import React from "react";
-import { Alert, FormContainer } from "../atoms";
-import {Input} from "../atoms/Input"
-import { UseForm } from "../../hooks/UseForm";
+import { Alert, FormContainer, Input } from "../atoms";
+// import {Input} from "../atoms/Input"
+// import { UseForm } from "../../hooks/UseForm";
 import { generateRegisterFormValues } from "./generateRegisterFormValues";
 import { Button } from "@mui/material";
 import { authenticateUser } from "../../redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "../../hooks";
+import { useAlert, UseForm } from "../../hooks";
 
 
 export const RegisterForm = () => {
@@ -19,7 +19,7 @@ export const RegisterForm = () => {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
-     const { showAlert, alertState, handleClose} = useAlert()
+    const { showAlert, alertState, handleClose} = useAlert()
     const onSubmit = () => {
         const firstName = registerFormValues.firstName.value;
         const lastName = registerFormValues.lastName.value;

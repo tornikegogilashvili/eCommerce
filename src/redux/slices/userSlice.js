@@ -5,7 +5,7 @@ import { axiosInstance } from "../../helper"
 export const authenticateUser = createAsyncThunk("user/authenticateUser",
 async ({formValues, isLogin}, {rejectWithValue}) => {
     try {
-        const route = `https://backend-fzwm.onrender.com/users/${isLogin ? "login" : "register"}`;
+        const route = `/users/${isLogin ? "login" : "register"}`;
         const {data} = await axiosInstance.post(route,formValues);
         localStorage.setItem("token", data.token);
         localStorage.setItem("refreshToken", data.refreshToken);
@@ -34,6 +34,10 @@ const userSlice = createSlice({
         builder.addCase(authenticateUser.fulfilled, (state, action) => {
             state.loading = true;
             state.userInfo = action.payload.user;
+        });
+        builder.addCase(authenticateUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         });
     },
 });
