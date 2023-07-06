@@ -25,19 +25,19 @@ const Description = styled("div")(() => ({
     marginBottom: "15px",
 }));
 
-export const SingleProductCard = ({product}) => {
-    const {userInfo} = useUser();
-    const {cartItems} = useCart();
+export const SingleProductCard = ({ product }) => {
+    const { userInfo } = useUser();
+    const { cartItems } = useCart();
     const { image, name, brand, description } = product;
-    
+
     return (
         <Container>
-            <StyledImage src={image}  />
+            <StyledImage src={image} />
             <Box>
                 <Description>
                     <Text variant="h4" >პროდუქტის დასახელება:</Text>
                     <Text variant="h4" >{name}</Text>
-                    
+
                 </Description>
                 <Text></Text>
                 <Description>
@@ -49,10 +49,10 @@ export const SingleProductCard = ({product}) => {
                     <Text variant="h4" >აღწერა:</Text>
                     <Text variant="h4" >{description}</Text>
                 </Description>
-                <ProductCardActions 
-                    
+                <ProductCardActions
+
                     userInfo={userInfo}
-                    product={product} 
+                    product={product}
                     cartItems={cartItems}
                 />
             </Box>

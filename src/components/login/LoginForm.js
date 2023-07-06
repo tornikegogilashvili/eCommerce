@@ -1,13 +1,13 @@
 import React from "react";
 import { Alert, Button, FormContainer, Input } from "../atoms";
 import { generateLoginFormValues } from "./generateLoginFormValues";
-import { useAlert,UseForm } from "../../hooks";
+import { useAlert, UseForm } from "../../hooks";
 import { useDispatch } from "react-redux";
 import { authenticateUser } from "../../redux";
 import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
-    const {formValues: loginFormValues, onFormChange:onLoginFormChange,isButtonDisabled,} = UseForm(generateLoginFormValues());
+    const { formValues: loginFormValues, onFormChange: onLoginFormChange, isButtonDisabled, } = UseForm(generateLoginFormValues());
 
     const loginFormButtonStyle = {
         // backgroundColor: "#4474c2",
@@ -18,9 +18,9 @@ export const LoginForm = () => {
     }
 
 
-    
 
-    const {  showAlert , alertState, handleClose} = useAlert(); 
+
+    const { showAlert, alertState, handleClose } = useAlert();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const onLogin = () => {
@@ -28,29 +28,29 @@ export const LoginForm = () => {
         const password = loginFormValues.password.value;
         dispatch(
             authenticateUser({
-                formValues: {email, password},
+                formValues: { email, password },
                 isLogin: true,
             })
         ).unwrap()
-        .then(() => {
-            navigate("/")
-        })
-        .catch((error) =>{
-            showAlert("error", error);
-            console.log(error);
-        })
+            .then(() => {
+                navigate("/")
+            })
+            .catch((error) => {
+                showAlert("error", error);
+                console.log(error);
+            })
     };
 
-    return(
+    return (
         <FormContainer  >
-            <Input 
+            <Input
                 name="email"
                 label="email"
                 value={loginFormValues.email.value}
                 onChange={onLoginFormChange}
                 error={loginFormValues.email.error}
             />
-            <Input 
+            <Input
                 name="password"
                 label="password"
                 value={loginFormValues.password.value}
@@ -63,5 +63,5 @@ export const LoginForm = () => {
         </FormContainer>
 
     )
-    
+
 }

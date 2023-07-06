@@ -1,4 +1,4 @@
-import  { useState } from "react"
+import { useState } from "react"
 import { axiosInstance } from "../helper";
 
 
@@ -10,20 +10,20 @@ export const useFetchData = () => {
         error: null,
     });
 
-const getData = async (url) => {
-    try {
-        setState((prev) => ({...prev, loading: true}));
-        const {data} = await axiosInstance.get(url);
-        setState((prev) => ({...prev, loading: false, data}));
+    const getData = async (url) => {
+        try {
+            setState((prev) => ({ ...prev, loading: true }));
+            const { data } = await axiosInstance.get(url);
+            setState((prev) => ({ ...prev, loading: false, data }));
 
-    }catch (error) {
-        setState((prev) => ({...prev, loading: false, error: error?.message}));
-    }
-};
+        } catch (error) {
+            setState((prev) => ({ ...prev, loading: false, error: error?.message }));
+        }
+    };
 
-return{
-    ...state,
-    getData,
-    setState,
-};
+    return {
+        ...state,
+        getData,
+        setState,
+    };
 };

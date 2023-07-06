@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {axiosInstance} from "../../helper"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { axiosInstance } from "../../helper"
 // import { SingleProduct } from "../../pages";
 
 
@@ -7,7 +7,7 @@ import {axiosInstance} from "../../helper"
 
 export const fetchHomePageProducts = createAsyncThunk(
     "product/fetchHomePageProducts",
-    async (_, {rejectWithValue}) => {
+    async (_, { rejectWithValue }) => {
         try {
             const { data } = await axiosInstance.get("/products");
             return data;
@@ -20,11 +20,11 @@ export const fetchHomePageProducts = createAsyncThunk(
 
 export const saveProduct = createAsyncThunk(
     "product/saveProduct",
-    async ({product, productId}, {dispatch, rejectWithValue}) => {
+    async ({ product, productId }, { dispatch, rejectWithValue }) => {
         try {
             const endpoint = productId ? `/products/${productId}` : "/products";
             const method = productId ? "put" : "post";
-            const {data} = await axiosInstance[method](endpoint,  {product});
+            const { data } = await axiosInstance[method](endpoint, { product });
             dispatch(fetchHomePageProducts());
             return data;
         } catch (error) {
@@ -34,13 +34,13 @@ export const saveProduct = createAsyncThunk(
 );
 
 
-export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id, {dispatch}) => {
+export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id, { dispatch }) => {
     try {
-        const {data} =await axiosInstance.delete(`https://backend-fzwm.onrender.com/products/${id}`);
+        const { data } = await axiosInstance.delete(`https://backend-fzwm.onrender.com/products/${id}`);
         dispatch(fetchHomePageProducts());
         return data;
     } catch (error) {
-        
+
     }
 })
 
@@ -57,13 +57,13 @@ export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id
 
 export const fetchSingleProduct = createAsyncThunk(
     "product/fetchSingleProduct",
-    async ({ id, category}, {rejectWithValue}) => {
+    async ({ id, category }, { rejectWithValue }) => {
         try {
             const { data } = await axiosInstance.get(
                 `/products/category/${category}/${id}`
             );
             return data;
-        }catch (error) {
+        } catch (error) {
             return rejectWithValue("could not fetch product");
         }
     }
@@ -91,10 +91,10 @@ export const productSlice = createSlice({
         categories: [],
         singleProduct: {},
     },
-    
-    
+
+
     reducers: {
-        setSelectedProduct: (state,action) => {
+        setSelectedProduct: (state, action) => {
             state.selectedProduct = action.payload
         },
     },
@@ -103,17 +103,17 @@ export const productSlice = createSlice({
         builder.addCase(fetchHomePageProducts.pending, pendingReducer);
 
 
-        
-        builder.addCase(fetchHomePageProducts.fulfilled, (state, action)=>{
+
+        builder.addCase(fetchHomePageProducts.fulfilled, (state, action) => {
             state.loading = false;
             state.homePageProducts = action.payload.products;
             state.categories = action.payload.categories;
         });
 
 
-        builder.addCase(fetchHomePageProducts.rejected, (state, action)=>{
+        builder.addCase(fetchHomePageProducts.rejected, (state, action) => {
             state.loading = false;
-            state.error=action.payload;
+            state.error = action.payload;
 
         });
 
@@ -123,17 +123,17 @@ export const productSlice = createSlice({
         });
 
 
-        
+
         builder.addCase(fetchSingleProduct.pending, pendingReducer);
         builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
             state.loading = false;
             state.singleProduct = action.payload.product;
-        } );
+        });
         builder.addCase(fetchSingleProduct.rejected, rejectedReducer);
 
     },
 });
 
-export const {setSelectedProduct} = productSlice.actions;
+export const { setSelectedProduct } = productSlice.actions;
 
 export const productReducer = productSlice.reducer;

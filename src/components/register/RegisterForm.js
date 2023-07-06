@@ -12,14 +12,14 @@ import { useAlert, UseForm } from "../../hooks";
 
 export const RegisterForm = () => {
     const {
-        formValues: registerFormValues, 
-        onFormChange, 
+        formValues: registerFormValues,
+        onFormChange,
         isButtonDisabled,
-     } = UseForm(generateRegisterFormValues());
-    
+    } = UseForm(generateRegisterFormValues());
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { showAlert, alertState, handleClose} = useAlert()
+    const { showAlert, alertState, handleClose } = useAlert()
     const onSubmit = () => {
         const firstName = registerFormValues.firstName.value;
         const lastName = registerFormValues.lastName.value;
@@ -27,34 +27,34 @@ export const RegisterForm = () => {
         const password = registerFormValues.password.value;
         dispatch(
             authenticateUser({
-                formValues: {firstName, lastName, email, password,},
+                formValues: { firstName, lastName, email, password, },
                 isLogin: false,
-        })
-    ).unwrap()
-    .then(() => {
-        navigate("/");
-    })
-    .catch((error) => {
-        showAlert(error);
-    });
+            })
+        ).unwrap()
+            .then(() => {
+                navigate("/");
+            })
+            .catch((error) => {
+                showAlert(error);
+            });
     };
 
 
 
-    return(
+    return (
         <FormContainer>
             <Input name="firstName" label="firstName" value={registerFormValues.firstName.value}
-            error={registerFormValues.firstName.error}
-            onChange={onFormChange} />
+                error={registerFormValues.firstName.error}
+                onChange={onFormChange} />
             <Input name="lastName" label="lastName" value={registerFormValues.lastName.value}
-            error={registerFormValues.lastName.error}
-            onChange={onFormChange} />
-            <Input name="email" label="email" value={registerFormValues.email.value} 
-            error={registerFormValues.email.error}
-            onChange={onFormChange} />
+                error={registerFormValues.lastName.error}
+                onChange={onFormChange} />
+            <Input name="email" label="email" value={registerFormValues.email.value}
+                error={registerFormValues.email.error}
+                onChange={onFormChange} />
             <Input name="password" label="password" value={registerFormValues.password.value}
-            error={registerFormValues.password.error}
-            onChange={onFormChange} />
+                error={registerFormValues.password.error}
+                onChange={onFormChange} />
             <Button onClick={onSubmit} disabled={isButtonDisabled} >register</Button>
 
             <Alert {...alertState} handleClose={handleClose} />

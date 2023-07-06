@@ -1,2 +1,2 @@
-export {SingleProduct} from "./SingleProduct"
-export {SingleProductCard} from "./SingleProductCard"
+export { SingleProduct } from "./SingleProduct"
+export { SingleProductCard } from "./SingleProductCard"

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useParams } from "react-router-dom";
-import { GridContainer, Loading, LoadingWrapper }  from "../../atoms"
+import { GridContainer, Loading, LoadingWrapper } from "../../atoms"
 import { Box, styled } from "@mui/material";
 import { ProductCard } from "../ProductCard"
 import { useProduct, useQueryParams } from "../../../hooks";
@@ -18,23 +18,23 @@ const Container = styled(Box)(() => ({
 }));
 
 export const CategoryProductsList = () => {
-    const {categoryName} = useParams();
-    const {value: page, changeQuery: changePage} = useQueryParams("page");
-    const {value: sort, changeQuery: changeSort} = useQueryParams("sort")
-    const {getData, loading, data} = useFetchData();
-    const {products, totalPages} = data;
+    const { categoryName } = useParams();
+    const { value: page, changeQuery: changePage } = useQueryParams("page");
+    const { value: sort, changeQuery: changeSort } = useQueryParams("sort")
+    const { getData, loading, data } = useFetchData();
+    const { products, totalPages } = data;
 
 
     useEffect(() => {
         getData(`/products/categories/${categoryName}?size=1&sort=${sort}&page=${page}`);
-    },[page, sort]);
+    }, [page, sort]);
 
 
     useEffect(() => {
         changePage("page", 1)
-    },[sort])
+    }, [sort])
 
-    
+
 
     return (
         <LoadingWrapper isLoading={loading}>
@@ -43,10 +43,11 @@ export const CategoryProductsList = () => {
                 <Sort sort={sort} changeSort={changeSort} />
                 <GridContainer>
                     {products?.map((product) => {
-                        return <ProductCard key={product._id} product={product}  />
+                        return <ProductCard key={product._id} product={product} />
                     })}
                 </GridContainer>
                 <Paginate total={totalPages} page={page} changePage={changePage} />
             </Container>
         </LoadingWrapper>
-)}
+    )
+}

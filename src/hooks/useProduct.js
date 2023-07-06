@@ -14,7 +14,7 @@ export const useProduct = () => {
 
     const productCategories = useSelector((state) => state.product.categories)
 
-    
+
 
     const singleProduct = useSelector((state) => state.product.singleProduct);
 

@@ -6,15 +6,15 @@ export const UseForm = (defaultFormValues) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const onFormChange = (event) => {
-        const {name , value} = event.target;
-        const {validateInput} = formValues[name]
+        const { name, value } = event.target;
+        const { validateInput } = formValues[name]
         setFormValues((prevFormValues) => {
             return {
                 ...prevFormValues,
-                [name] : {
+                [name]: {
                     ...prevFormValues[name],
                     value,
-                    error:validateInput ? validateInput(value):null,
+                    error: validateInput ? validateInput(value) : null,
                 },
             };
         });
@@ -22,15 +22,15 @@ export const UseForm = (defaultFormValues) => {
 
     useEffect(() => {
         setIsButtonDisabled(checkButtonDisabled(formValues));
-    },[formValues])
+    }, [formValues])
 
     const clearForm = (data) => {
         setFormValues(data);
     }
 
     const checkButtonDisabled = (formValues) => {
-        for(let x in formValues ){
-            if(formValues[x]?.error){
+        for (let x in formValues) {
+            if (formValues[x]?.error) {
                 return true;
             }
         }

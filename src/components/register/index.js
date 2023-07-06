@@ -1,2 +1,2 @@
-export {RegisterForm} from "./RegisterForm"; 
+export { RegisterForm } from "./RegisterForm";
 

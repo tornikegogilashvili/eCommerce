@@ -9,7 +9,7 @@ export const useQueryParams = (key) => {
         params.set(key, value);
         setParams(params);
     }
-    return{
+    return {
         value: params.get(key),
         changeQuery,
     }

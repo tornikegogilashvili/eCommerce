@@ -9,10 +9,10 @@ import { useParams } from "react-router-dom";
 
 export const SingleProduct = () => {
     const { isProductLoading, singleProduct } = useProduct();
-    const {category, id} = useParams();
+    const { category, id } = useParams();
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchSingleProduct({id,category}));
+        dispatch(fetchSingleProduct({ id, category }));
     }, [id, category]);
     return (
         <LoadingWrapper isLoading={isProductLoading} >

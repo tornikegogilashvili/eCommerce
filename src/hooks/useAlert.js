@@ -3,12 +3,12 @@ import { useState } from "react"
 export const useAlert = () => {
     const [alertState, setAlertState] = useState({
         open: false,
-        message:"",
-        severity:"success",
+        message: "",
+        severity: "success",
     });
 
 
-    const  handleClose = () => {
+    const handleClose = () => {
         setAlertState((prev) => ({
             ...prev,
             open: false,
@@ -16,7 +16,7 @@ export const useAlert = () => {
         }));
     };
 
-    const showAlert = (severity, {message}) => {
+    const showAlert = (severity, { message }) => {
         setAlertState({
             open: true,
             severity,
@@ -24,11 +24,11 @@ export const useAlert = () => {
         });
     };
 
-    
 
-        return {
-            alertState,
-            handleClose,
-            showAlert,
-        };
+
+    return {
+        alertState,
+        handleClose,
+        showAlert,
+    };
 };

@@ -8,34 +8,34 @@ import { fetchCart, fetchHomePageProducts } from "./redux";
 import { useDispatch } from "react-redux";
 import { useUser } from "./hooks";
 
-const  App = () => {
+const App = () => {
   const dispatch = useDispatch();
-  const {userInfo} = useUser();
+  const { userInfo } = useUser();
 
   useEffect(() => {
     dispatch(fetchHomePageProducts());
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (userInfo?._id) {
-      dispatch(fetchCart({userId: userInfo._id}));
+      dispatch(fetchCart({ userId: userInfo._id }));
     }
-  },[userInfo])
+  }, [userInfo])
 
-  return(
-    <Grid  sx={{minHeight: "100vh"}} > 
+  return (
+    <Grid sx={{ minHeight: "100vh" }} >
       <Grid item  >
         <Header />
       </Grid>
       {/* <Link to="/product/new" >add Product</Link> */}
-      <Grid item 
+      <Grid item
         sx={{
           paddingTop: 20,
           minHeight: "100%",
           width: "100%",
           pb: 10,
           backgroundColor: "#f0f0b2",
-        }} 
+        }}
       >
         <RouteComponent />
       </Grid>

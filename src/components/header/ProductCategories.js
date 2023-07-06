@@ -12,17 +12,17 @@ const StyledListItems = styled(ListItem)(() => ({
 export const ProductCategories = () => {
     const { productCategories } = useProduct();
     return (
-    <List sx={{ display: "flex" }} >
-        {productCategories.map((category) => {
-            const { _id, name } = category;
-            return(
-                <Link to={`/products/categories/${name}?page=1&sort=price,asc`} >
-                    <StyledListItems key={_id} >
-                        <Text color="#FF9900">{name}</Text>
-                    </StyledListItems>
-                </Link>
-            );
-        })}
-    </List>
+        <List sx={{ display: "flex" }} >
+            {productCategories.map((category) => {
+                const { _id, name } = category;
+                return (
+                    <Link to={`/products/categories/${name}?page=1&sort=price,asc`} >
+                        <StyledListItems key={_id} >
+                            <Text color="#FF9900">{name}</Text>
+                        </StyledListItems>
+                    </Link>
+                );
+            })}
+        </List>
     );
 };
